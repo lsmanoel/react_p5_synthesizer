@@ -1,13 +1,13 @@
 import p5 from 'p5'
-import { Animation, WindowSize } from '@/presentation/p5/protocols/animation'
+import { Animation, AnimationSize } from '@/presentation/p5/protocols/animation'
 
 export class FireAnimation implements Animation {
-  constructor (readonly windowSize: WindowSize) {}
+  constructor (readonly animationSize: AnimationSize) {}
   myP5: p5
 
   sketch = (p: p5): void => {
     p.setup = () => {
-      p.createCanvas(this.windowSize.width, this.windowSize.height)
+      p.createCanvas(this.animationSize.width, this.animationSize.height)
     }
 
     p.draw = () => {
