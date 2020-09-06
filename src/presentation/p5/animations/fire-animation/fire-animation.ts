@@ -9,17 +9,20 @@ export class FireAnimation implements Animation {
   fireProcessArray: number[]
 
   sketch = (p: p5): void => {
+    const pixelDensity = 5
     p.setup = () => {
-      p.createCanvas(this.animationSize.width, this.animationSize.height)
+      p.createCanvas(pixelDensity * this.animationSize.width, pixelDensity * this.animationSize.height)
+      p.frameRate(30)
+      p.pixelDensity(1)
       p.loadPixels()
       this.fireAnimationProcess = new FireAnimationProcess(this.animationSize)
-      this.fireAnimationProcess.build(p.pixels, p.pixelDensity())
+      this.fireAnimationProcess.build(p.pixels, pixelDensity)
       p.updatePixels()
     }
 
     p.draw = () => {
       this.fireAnimationProcess.calculeteFirePropagation()
-      this.fireAnimationProcess.renderRGBAFire(p.pixels, p.pixelDensity())
+      this.fireAnimationProcess.renderRGBAFire(p.pixels, pixelDensity)
       p.updatePixels()
     }
   }

@@ -70,15 +70,21 @@ export class FireAnimationProcess {
   }
 
   renderRGBAFire = (firePixelsRGBAArray: number[], pixelDensity: number = 1): void => {
-    for (let row = 0; row < this.fireProcessArraySize.height; row++) {
-      for (let column = 0; column < this.fireProcessArraySize.width; column++) {
-        const pixelIndex = column + (this.fireProcessArraySize.width * row)
-        const fireIntensity = this.fireProcessArray[pixelIndex]
+    for (let fireProcessArrayRow = 0; fireProcessArrayRow < this.fireProcessArraySize.height; fireProcessArrayRow++) {
+      for (let fireProcessArrayColumn = 0; fireProcessArrayColumn < this.fireProcessArraySize.width; fireProcessArrayColumn++) {
+        const fireProcessArrayIndex = fireProcessArrayColumn + (this.fireProcessArraySize.width * fireProcessArrayRow)
+        const canvasIndex = pixelDensity * fireProcessArrayColumn + (this.fireProcessArraySize.width * pixelDensity * pixelDensity * fireProcessArrayRow)
+        const fireIntensity = this.fireProcessArray[fireProcessArrayIndex]
         const color = fireColorsPalette[fireIntensity]
-        firePixelsRGBAArray[4 * pixelIndex] = color.r // R
-        firePixelsRGBAArray[4 * pixelIndex + 1] = color.g // G
-        firePixelsRGBAArray[4 * pixelIndex + 2] = color.b // B
-        firePixelsRGBAArray[4 * pixelIndex + 3] = fireIntensity * fireIntensity // A
+        for (let pixelRow = 0; pixelRow < pixelDensity; pixelRow++) {
+          for (let pixelColumn = 0; pixelColumn < pixelDensity; pixelColumn++) {
+            const pixelIndex = pixelColumn + (this.fireProcessArraySize.width * pixelDensity * pixelRow)
+            firePixelsRGBAArray[4 * (canvasIndex + pixelIndex)] = color.r // R
+            firePixelsRGBAArray[4 * (canvasIndex + pixelIndex) + 1] = color.g // G
+            firePixelsRGBAArray[4 * (canvasIndex + pixelIndex) + 2] = color.b // B
+            firePixelsRGBAArray[4 * (canvasIndex + pixelIndex) + 3] = Math.pow(fireIntensity, 2) // A
+          }
+        }
       }
     }
   }

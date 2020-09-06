@@ -3,7 +3,7 @@ import { FireAnimation } from '@/presentation/p5/animations/fire-animation/fire-
 
 const AnimatedBackgroud: React.FC = () => {
   const myRef = useRef<HTMLDivElement>()
-  const fireAnimation = new FireAnimation({ height: 600, width: 800 })
+  const fireAnimation = new FireAnimation({ height: 50, width: 200 })
 
   useLayoutEffect(() => {
     fireAnimation.build(myRef.current)
