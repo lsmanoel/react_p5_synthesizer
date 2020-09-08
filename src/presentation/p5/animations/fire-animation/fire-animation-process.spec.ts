@@ -22,25 +22,13 @@ describe('FireAnimationProcess', () => {
   test('Should start with fire source value 36 and sourceLength<fireProcessArray.width', () => {
     const animationSize: AnimationSize = { height: 10, width: 10 }
     const fireAnimation = new FireAnimationProcess(animationSize)
-    const sourceLength = Math.trunc(animationSize.width / 4)
+    const sourceLength = Math.trunc(animationSize.width / 2)
+    const sourceStart = Math.trunc(animationSize.width / 4)
     fireAnimation.createFireDataStructure()
-    fireAnimation.createFireSource(sourceLength)
+    fireAnimation.createFireSource(sourceLength, sourceStart)
     expect(fireAnimation.fireProcessArray.slice(
-      fireAnimation.fireProcessArray.length - Math.trunc(animationSize.width / 2) - Math.trunc(sourceLength / 2),
-      fireAnimation.fireProcessArray.length - Math.ceil(animationSize.width / 2) + Math.ceil(sourceLength / 2)
-    ))
-      .toEqual(Array(sourceLength).fill(36))
-  })
-
-  test('Should start with fire source value 36 and sourceLength<fireProcessArray.width', () => {
-    const animationSize: AnimationSize = { height: 10, width: 10 }
-    const fireAnimation = new FireAnimationProcess(animationSize)
-    const sourceLength = Math.trunc(animationSize.width / 4)
-    fireAnimation.createFireDataStructure()
-    fireAnimation.createFireSource(sourceLength)
-    expect(fireAnimation.fireProcessArray.slice(
-      fireAnimation.fireProcessArray.length - Math.trunc(animationSize.width / 2) - Math.trunc(sourceLength / 2),
-      fireAnimation.fireProcessArray.length - Math.ceil(animationSize.width / 2) + Math.ceil(sourceLength / 2)
+      fireAnimation.fireProcessArray.length - animationSize.width + sourceStart,
+      fireAnimation.fireProcessArray.length - animationSize.width + sourceStart + sourceLength
     ))
       .toEqual(Array(sourceLength).fill(36))
   })
@@ -50,7 +38,7 @@ describe('FireAnimationProcess', () => {
     const fireAnimation = new FireAnimationProcess(animationSize)
     const sourceLength = animationSize.width
     fireAnimation.createFireDataStructure()
-    fireAnimation.createFireSource(sourceLength)
+    fireAnimation.createFireSource(sourceLength, 0)
     const unitaryDecay = { decay: 1, intrinsicTurbulence: 0, windTurbulence: 0 }
     for (let round = 0; round < 40; round++) {
       for (let column = 0; column < animationSize.width; column++) {
@@ -69,7 +57,7 @@ describe('FireAnimationProcess', () => {
   })
 
   test('Should generateRandomBehavior generate random values', () => {
-    const animationSize: AnimationSize = { height: 38, width: 500 }
+    const animationSize: AnimationSize = { height: 38, width: 100 }
     const sourceLength = animationSize.width
 
     const fireAnimationDeterministic = new FireAnimationProcess(animationSize)
