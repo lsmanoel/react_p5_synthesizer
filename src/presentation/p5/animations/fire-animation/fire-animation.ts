@@ -10,15 +10,24 @@ export class FireAnimation implements Animation {
     ascendantDecay: number = 2,
     sideWind: number = 1,
     spreading: number = 2,
-    sourceLength: number = -1
+    sourceLength: number = -1,
+    sourceStart: number = -1
   ) {
     this.ascendantDecay = ascendantDecay
     this.sideWind = sideWind
     this.spreading = spreading
     if (sourceLength < 0) {
-      this.sourceLength = animationSize.width - 36
+      this.sourceLength = animationSize.width - 36 * 2 * sideWind
     } else {
       this.sourceLength = sourceLength
+    }
+    if (sourceStart < 0) {
+      this.sourceStart = Math.trunc(animationSize.width / 2) - Math.trunc(sourceLength / 2) - 2 * 36 * sideWind
+      if (this.sourceStart < 0) {
+        this.sourceStart = 2
+      }
+    } else {
+      this.sourceStart = sourceStart
     }
   }
 
@@ -29,7 +38,7 @@ export class FireAnimation implements Animation {
   sideWind: number
   spreading: number
   sourceLength: number
-
+  sourceStart: number
   set ascendantDecay (inputValue: number) {
     if (inputValue < 2) {
       inputValue = 2
@@ -51,7 +60,8 @@ export class FireAnimation implements Animation {
         this._ascendantDecay,
         this.sideWind,
         this.spreading,
-        this.sourceLength
+        this.sourceLength,
+        this.sourceStart
       )
 
       this.fireAnimationProcess.build()

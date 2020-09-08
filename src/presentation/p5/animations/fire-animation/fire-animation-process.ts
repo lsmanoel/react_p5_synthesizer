@@ -15,7 +15,8 @@ export class FireAnimationProcess {
     ascendantDecay: number = 2,
     sideWind: number = 1,
     spreading: number = 2,
-    sourceLength: number = -1
+    sourceLength: number = -1,
+    sourceStart: number = -1
   ) {
     if (fireProcessArraySize.width % 2) {
       fireProcessArraySize.width++
@@ -28,9 +29,17 @@ export class FireAnimationProcess {
     this.sideWind = sideWind
     this.spreading = spreading
     if (sourceLength < 0) {
-      this.sourceLength = fireProcessArraySize.width - 36
+      this.sourceLength = fireProcessArraySize.width - 36 * 2 * sideWind
     } else {
       this.sourceLength = sourceLength
+    }
+    if (sourceStart < 0) {
+      this.sourceStart = Math.trunc(fireProcessArraySize.width / 2) - Math.trunc(sourceLength / 2) - 2 * 36 * sideWind
+      if (this.sourceStart < 0) {
+        this.sourceStart = 2
+      }
+    } else {
+      this.sourceStart = sourceStart
     }
     this.build()
   }
@@ -44,6 +53,7 @@ export class FireAnimationProcess {
   sideWind: number
   spreading: number
   sourceLength: number
+  sourceStart: number
 
   set ascendantDecay (inputValue: number) {
     if (inputValue < 2) {
@@ -64,10 +74,9 @@ export class FireAnimationProcess {
     }
   }
 
-  createFireSource = (sourceLength: number = this.sourceLength): void => {
-    const startSource = Math.trunc(this.fireProcessArraySize.width / 2) - Math.trunc(sourceLength / 2)
-    const endSource = Math.ceil(this.fireProcessArraySize.width / 2) + Math.ceil(sourceLength / 2)
-    for (let column = startSource; column < endSource; column++) {
+  createFireSource = (sourceLength: number = this.sourceLength, sourceStart: number = this.sourceStart): void => {
+    const endSource = sourceStart + sourceLength
+    for (let column = sourceStart; column < endSource; column++) {
       const overflowFireCellIndex = this.fireProcessArraySize.width * this.fireProcessArraySize.height
       const fireCellIndex = (overflowFireCellIndex - this.fireProcessArraySize.width) + column
       this.fireProcessArray[fireCellIndex] = 36
@@ -75,7 +84,7 @@ export class FireAnimationProcess {
   }
 
   calculeteFirePropagation = (updateFireIntensityPerFireCell: Function = this.updateFireIntensityPerFireCell): void => {
-    for (let column = 0; column < this.fireProcessArraySize.width; column++) {
+    for (let column = this.fireProcessArraySize.width - 1; column >= 0; column--) {
       for (let row = 0; row < this.fireProcessArraySize.height; row++) {
         const currentFireCellIndex = column + (this.fireProcessArraySize.width * row)
         updateFireIntensityPerFireCell(currentFireCellIndex)
@@ -86,7 +95,12 @@ export class FireAnimationProcess {
   generateRandomBehavior = (ascendantDecay: number = this._ascendantDecay, spreading: number = this.spreading, sideWind: number = this.sideWind): RandomBehaviors => {
     const decay = Math.floor(Math.random() * ascendantDecay)
     const intrinsicTurbulence = Math.floor(spreading * Math.random()) - Math.floor(spreading * Math.random())
-    const windTurbulence = Math.floor(sideWind * Math.random())
+    let windTurbulence: number
+    if (sideWind < 0) {
+      windTurbulence = Math.ceil(sideWind * Math.random())
+    } else {
+      windTurbulence = Math.floor(sideWind * Math.random())
+    }
     return { decay: decay, intrinsicTurbulence: intrinsicTurbulence, windTurbulence: windTurbulence }
   }
 
