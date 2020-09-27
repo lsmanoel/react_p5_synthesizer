@@ -1,20 +1,15 @@
 import React, { useLayoutEffect, useRef } from 'react'
-import { FireAnimation } from '@/presentation/p5/animations/fire-animation/fire-animation'
+import { Animation } from '@/presentation/p5/protocols/animation'
 
-const AnimatedBackgroud: React.FC = () => {
+type Props = {
+  animation: Animation
+}
+
+const AnimatedBackgroud: React.FC<Props> = ({ animation }: Props) => {
   const myRef = useRef<HTMLDivElement>()
-  const fireAnimation = new FireAnimation(
-    { height: 100, width: 200 },
-    3,
-    30,
-    1,
-    1,
-    2,
-    50,
-    75)
 
   useLayoutEffect(() => {
-    fireAnimation.build(myRef.current)
+    animation.build(myRef.current)
   })
 
   return (

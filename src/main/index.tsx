@@ -1,9 +1,10 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import Home from '@/presentation/pages/home/home'
+import Router from './routes/router'
+
 import '@/presentation/styles/global.scss'
 
 ReactDOM.render(
-  <Home />,
+  <Router />,
   document.getElementById('main')
 )

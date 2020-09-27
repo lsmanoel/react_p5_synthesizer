@@ -1,9 +1,14 @@
 import React from 'react'
 import AnimatedBackgroud from '@/presentation/components/p5/animated-backgroud/animated-backgroud'
+import { Animation } from '@/presentation/p5/protocols/animation'
 
-const Home: React.FC = () => {
+type Props = {
+  backgroundAnimation: Animation
+}
+
+const Home: React.FC<Props> = ({ backgroundAnimation }: Props) => {
   return (
-    <AnimatedBackgroud />
+    <AnimatedBackgroud animation={ backgroundAnimation }/>
   )
 }
 
