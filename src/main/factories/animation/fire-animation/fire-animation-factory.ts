@@ -2,12 +2,12 @@ import { FireAnimation } from '@/presentation/p5/animations/fire-animation/fire-
 
 export const makeFireAnimation = (): FireAnimation => {
   return new FireAnimation(
-    { height: 100, width: 200 },
+    { height: 100, width: 340 },
     3,
     30,
     1,
     1,
     2,
-    50,
+    250,
     75)
 }
