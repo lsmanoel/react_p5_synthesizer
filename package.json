@@ -1,5 +1,5 @@
 {
-  "name": "doom-fire-react-p5",
+  "name": "synthesizer-react-p5",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -37,6 +37,7 @@
     "lint-staged": "^10.2.2",
     "node-sass": "^4.14.1",
     "sass-loader": "^10.0.1",
+    "script-loader": "^0.7.2",
     "style-loader": "^1.2.1",
     "ts-jest": "^25.5.0",
     "ts-loader": "^8.0.3",

@@ -8,8 +8,14 @@
   justify-content: space-between;
 }
 
-.animation {
-  position: absolute;
-  left: 10px;
-  top: 200px;
+.homeWrap{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .animation {
+    // position: absolute;
+    // left: 0px;
+    // top: 0px;
+    width: 100%;
+  }
 }
