@@ -25,8 +25,10 @@ module.exports = merge(common, {
     }]
   },
   externals: {
+    axios: 'axios',
     react: 'React',
-    'react-dom': 'ReactDOM'
+    'react-dom': 'ReactDOM',
+    'react-router-dim': 'ReactRouterDOM'
   },
   plugins: [
     new HtmlWebpackPlugin({
