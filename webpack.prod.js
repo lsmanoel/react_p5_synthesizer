@@ -27,6 +27,7 @@ module.exports = merge(common, {
   externals: {
     axios: 'axios',
     react: 'React',
+    p5: 'p5',
     'react-dom': 'ReactDOM',
     'react-router-dim': 'ReactRouterDOM'
   },
