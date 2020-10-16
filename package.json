@@ -7,6 +7,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node index",
     "dev": "webpack-dev-server --open --config webpack.dev.js",
     "build": "webpack --config webpack.prod.js",
     "test": "jest --passWithNoTests --no-cache --runInBand",
@@ -54,6 +55,8 @@
     "webpack-merge": "^5.2.0"
   },
   "dependencies": {
+    "express": "^4.17.1",
+    "express-history-api-fallback": "^2.2.1",
     "p5": "^1.1.9",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
