@@ -142,13 +142,13 @@ export class Synthesizer implements Animation {
       // -------------------------------------------------------------------
       // Notes
       if (!this.keyboardModeCheckbox.checked()) {
-        p.noStroke()
-        p.fill(255, 255, 0)
-        p.textSize(14)
-        for (const i in noteTable) {
-          p.rect(this.freqResolutionRatio * Math.ceil(noteTable[i].freq), 0, 1, p.height)
-          p.text(noteTable[i].name, this.freqResolutionRatio * Math.ceil(noteTable[i].freq) + 2, 20)
-        }
+        // p.noStroke()
+        // p.fill(255, 255, 0)
+        // p.textSize(14)
+        // for (const i in noteTable) {
+        //   p.rect(5 * Math.ceil(noteTable[i].freq) + 64, 0, 1, p.height)
+        //   p.text(noteTable[i].name, 5 * Math.ceil(noteTable[i].freq) + 66, 20)
+        // }
         p.fill(255, 255, 255)
         p.textSize(30)
         p.text('Click aqui com o mouse para tocar', 600, 100)
